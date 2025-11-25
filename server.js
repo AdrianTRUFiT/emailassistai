@@ -151,9 +151,8 @@ const transporter = nodemailer.createTransport({
 //   }
 // });
 
-
 // -----------------------------
-// 3. DONATION EMAIL
+// 3. DONATION EMAIL (UPDATED)
 // -----------------------------
 function getPartialSoulmark(fullSoulmark) {
   if (!fullSoulmark || fullSoulmark.length < 10) return fullSoulmark || "N/A";
@@ -166,11 +165,14 @@ async function sendDonationEmail({ name, email, soulmark, amount, currency }) {
   const fromLabel = `${campaignName} <${ALIAS_SUPPORT || SMTP_USER}>`;
   const partial = getPartialSoulmark(soulmark);
 
+  // 🔐 Universal access gateway (login or create username)
+  const accessUrl = "https://fundtrackerai.vercel.app/iascendai-signup.html";
+
   const html = `
     <p>Thank you for your donation. Your contribution has been verified successfully.</p>
 
     <p>A unique SoulMark has been created for this transaction.<br>
-    For your security, only a portion is shown:</p>
+    For your protection, only a partial version is shown below:</p>
 
     <p><strong>SoulMark (partial):</strong> ${partial}</p>
 
@@ -180,11 +182,14 @@ async function sendDonationEmail({ name, email, soulmark, amount, currency }) {
         : ""
     }
 
-    <p>To activate your full SoulMark and access your donation dashboard, click below:</p>
+    <p>To view your verified donation history and access your SoulMark dashboard, use the secure portal below:</p>
 
-    <p><a href="${dashboardUrl}">
+    <p><a href="${accessUrl}">
       <strong>Access Your Dashboard</strong>
     </a></p>
+
+    <p>If you already created your iAscendAi username, simply sign in.<br>
+    If not, the portal will guide you to create one so you can access your dashboard.</p>
 
     <p>${campaignName} × iAscendAi</p>
   `;
@@ -192,12 +197,14 @@ async function sendDonationEmail({ name, email, soulmark, amount, currency }) {
   const mail = {
     from: fromLabel,
     to: email,
-    subject: "Thank You — Your Donation Has Been Received",
+    subject: "Your Donation Has Been Verified",
     html,
   };
 
   return transporter.sendMail(mail);
 }
+
+
 
 // Donation endpoint
 app.post("/api/donation-email", async (req, res) => {
