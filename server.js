@@ -142,14 +142,15 @@ const transporter = nodemailer.createTransport({
   },
 });
 
-// Test SMTP connection
-transporter.verify((err, success) => {
-  if (err) {
-    console.error("❌ SMTP transport verification failed:", err.message);
-  } else {
-    console.log("✅ SMTP transport ready.");
-  }
-});
+// SMTP verify temporarily disabled for Render upgrade
+// transporter.verify((err, success) => {
+//   if (err) {
+//     console.error("❌ SMTP transport verification failed:", err.message);
+//   } else {
+//     console.log("✅ SMTP transport ready.");
+//   }
+// });
+
 
 // -----------------------------
 // 3. DONATION EMAIL
