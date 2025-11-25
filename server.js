@@ -184,9 +184,10 @@ async function sendDonationEmail({ name, email, soulmark, amount, currency }) {
 
     <p>To view your verified donation history and access your SoulMark dashboard, use the secure portal below:</p>
 
-    <p><a href="${accessUrl}">
-      <strong>Access Your Dashboard</strong>
+    <p><a href="https://fundtrackerai.vercel.app/iascendai-signup.html?email=${email}">
+    <strong>Access Your Dashboard</strong>
     </a></p>
+
 
     <p>If you already created your iAscendAi username, simply sign in.<br>
     If not, the portal will guide you to create one so you can access your dashboard.</p>
